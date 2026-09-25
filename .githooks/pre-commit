@@ -1,0 +1,9 @@
+#!/bin/sh
+# Refuse to commit anything that could carry keys or user data.
+blocked=$(git diff --cached --name-only | grep -E '^data/|(^|/)\.env($|\.)|(^|/)secret\.key$|\.db(-wal|-shm)?$|(^|/)LICENSED-TO\.txt$' | grep -v '^\.env\.example$')
+if [ -n "$blocked" ]; then
+  echo "pre-commit: refusing to commit files that may contain keys or user data:" >&2
+  echo "$blocked" | sed 's/^/  /' >&2
+  echo "If this is genuinely intended, commit with --no-verify." >&2
+  exit 1
+fi

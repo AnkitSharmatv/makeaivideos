@@ -1,0 +1,62 @@
+MakeAiVideos — End User Licence Agreement
+Copyright (c) 2026 Ankit Sharma. All rights reserved.
+
+This is a commercial licence, not an open-source licence. By installing or using
+this software you agree to the terms below.
+
+FIRST RELEASE — FREE EVALUATION COPIES
+During this early period, copies may be given away free of charge for evaluation.
+A free copy is licensed on exactly the same terms below, except that no payment is
+required. Clause 1(a) then reads: one copy, one individual or one company.
+
+1. WHAT YOU MAY DO
+   a. One purchase grants one licence to one individual, or to one company for
+      use by its own staff.
+   b. You may install and run the software on as many machines as you personally
+      own or control, or that the licensed company owns or controls.
+   c. You may use it for personal or commercial work, including work you are paid
+      for. Anything you generate with it is yours; this licence makes no claim on
+      your output.
+   d. You may modify the source for your own use, and keep those modifications.
+
+2. WHAT YOU MAY NOT DO
+   a. Redistribute, publish, resell, sublicense, rent or lend the software or its
+      source, modified or not, in whole or in part.
+   b. Share your repository access, licence file or download links with anyone
+      outside your licence under clause 1(a).
+   c. Offer the software, or a derivative of it, as a hosted or managed service to
+      third parties.
+   d. Remove or alter copyright notices, or the per-copy licence stamp.
+
+3. UPDATES
+   Updates are provided while your repository access is active. There is no
+   guarantee of any particular update cadence, feature or continued availability.
+
+4. THIRD-PARTY SERVICES
+   The software calls AI providers (KIE, FAL, Higgsfield and others) using API
+   keys you supply. You are solely responsible for those accounts, their costs,
+   their terms and anything you generate through them. The author is not a party
+   to your relationship with any provider, and makes no guarantee that a provider
+   will remain available or behave as documented.
+
+5. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+6. LIMITATION OF LIABILITY
+   TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE AUTHOR SHALL NOT BE LIABLE FOR ANY
+   CLAIM, DAMAGES OR OTHER LIABILITY — INCLUDING PROVIDER CHARGES, LOST DATA OR
+   LOST PROFITS — ARISING FROM THE SOFTWARE OR ITS USE. TOTAL LIABILITY SHALL NOT
+   EXCEED THE AMOUNT YOU PAID FOR THE LICENCE.
+
+7. TERMINATION
+   This licence ends automatically if you breach it. On termination you must stop
+   using the software and delete your copies.
+
+8. OPEN-SOURCE COMPONENTS
+   The software depends on third-party open-source packages, each under its own
+   licence. Those licences govern those components; this agreement covers only the
+   MakeAiVideos source itself.
+
+Questions about this licence: social@ankitsharma.tv
