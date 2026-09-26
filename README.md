@@ -5,8 +5,13 @@ using your own API keys from KIE, FAL or Higgsfield. Everything lives on the
 machine that runs it: accounts, encrypted keys, projects and a local copy of
 every result sit in one `data/` folder. No third-party services, no telemetry.
 
-**New here, or not a developer?** Follow [START-HERE.md](START-HERE.md) instead —
-it walks through the whole setup with Claude Code, step by step.
+## Watch the setup walkthrough
+
+[![MakeAiVideos — setup walkthrough](https://img.youtube.com/vi/fXy1EWDDkSI/maxresdefault.jpg)](https://youtu.be/fXy1EWDDkSI)
+
+**New here, or not a developer?** Watch the video above, then follow
+[START-HERE.md](START-HERE.md) — it walks through the whole setup with Claude
+Code, step by step.
 
 ## Quickstart
 

@@ -7,6 +7,9 @@ saved on your machine.
 This guide assumes you have never used a terminal. Allow about 20 minutes the
 first time. You can copy and paste every instruction below.
 
+**Prefer to watch someone do it?** There is a video walkthrough here:
+<https://youtu.be/fXy1EWDDkSI> — follow along with the steps below.
+
 ---
 
 ## What you need before you start
