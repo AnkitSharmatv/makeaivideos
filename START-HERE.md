@@ -85,6 +85,8 @@ Bookmark that address — it is how you will open the app every time.
 
 ## Step 5 — Create your account
 
+![The Create your account screen](docs/screenshots/01-create-account.jpg)
+
 The first screen asks you to create an account. Use any email and password you
 like. **This account exists only on your computer** — nothing is sent anywhere,
 there is no email to confirm, and no one else can see it.
@@ -95,6 +97,8 @@ because there is no server to send it.
 ---
 
 ## Step 6 — Add an API key
+
+![Adding a provider API key](docs/screenshots/02-add-api-key.jpg)
 
 The app now asks for an API key. This is what lets it talk to the AI models, and
 what you pay for the generations.
@@ -115,6 +119,8 @@ anywhere except to the provider it belongs to, when you generate something.
 
 ## Step 7 — Make your first image
 
+![The empty Projects screen with the New project button](docs/screenshots/03-start-a-project.jpg)
+
 1. Click **New project** and give it a name, for example "Testing".
 2. Type what you want in the big box at the bottom, for example:
    *"A red apple on a wooden table, morning light through a window"*
@@ -124,6 +130,13 @@ anywhere except to the provider it belongs to, when you generate something.
 5. Press **Generate**.
 
 Your image appears in a few seconds. Click it to see it full size.
+
+![A project with generated images, and the prompt bar using an @image1 reference tag](docs/screenshots/05-project-and-tags.jpg)
+
+Once you have a picture you like, you can feed it back in: hover it, press
+**Use ▾**, and send it to the next generation as a reference or as the first
+frame of a video. Attached references get a tag like `@image1` that you can
+mention in the prompt — it lights up so you can see it was understood.
 
 ---
 
@@ -175,6 +188,10 @@ instruction will only ever tell you to use the files you already have.
   syncing, no telemetry. Back it up by copying the `data` folder.
 - **Turn off models you don't use.** There are 130 of them. Your name in the top
   right → **Models** → switch off what you don't need, so the list stays short.
+  Each one shows what a single run costs, so you can keep only what suits your
+  budget.
+
+  ![The Models screen showing every model with its price and an on/off switch](docs/screenshots/04-models-and-prices.jpg)
 - **Check your balance** any time from the wallet icon at the top.
 
 ---

@@ -13,6 +13,14 @@ every result sit in one `data/` folder. No third-party services, no telemetry.
 [START-HERE.md](START-HERE.md) — it walks through the whole setup with Claude
 Code, step by step.
 
+## What it looks like
+
+![A project with generated images, and the prompt bar using an @image1 reference tag](docs/screenshots/05-project-and-tags.jpg)
+*Your work lives in projects. Attached references get `@image1` tags you can mention in the prompt.*
+
+![The Models screen showing every model with its price and an on/off switch](docs/screenshots/04-models-and-prices.jpg)
+*130 models with real prices — switch off the ones you don't want in the picker.*
+
 ## Quickstart
 
 Requires **Node 20.9+** and **pnpm 10** (`corepack enable` installs it).
