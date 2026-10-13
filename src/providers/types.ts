@@ -72,6 +72,8 @@ export type ModelSpec = {
   settings: SettingSpec[];
   media: MediaRoleSpec[];
   batch: { native: boolean; max: number };
+  /** True when the model can run without a prompt (it works from its media alone). */
+  promptOptional?: boolean;
   /** Prompt syntax for referencing attached images; undefined = natural language. */
   promptRefs?: PromptRefStyle;
   /** True when the model accepts a negative prompt / seed via the Advanced row. */

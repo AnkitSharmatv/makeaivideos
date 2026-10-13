@@ -66,3 +66,12 @@ live `/estimate` quote still overrides them in the composer.
 Not added (need new UI): Marketing Studio `preset_id` (list from `/marketing-studio/image/presets`), SOUL `style_id`
 (`/v1/text2image/soul-styles/v2`), Kling 3.0 `elements` (pre-created element ids), `multi_shots`/`multi_prompt`,
 and audio inputs (`audio_url`, `audio_urls`).
+
+## Genjutsu Motion Transfer (re-verified 2026-10-13)
+Endpoint id is now spelled correctly: **`higgsfield/genjutsu/motion-transfer/v1.0`**. The old
+misspelled `higgsfiled/...` alias still answers, and both appear in the catalog API, but the
+published API reference documents the corrected one, so that is what the adapter uses.
+Also changed: `resolution` now offers **1080p** alongside 720p/480p, and the docs state the source
+clip must be ≥4 s (anything over 30 s is trimmed), references are 1–8 images, and `prompt` is
+optional (defaults to ""). Output duration follows the source video, so billing is
+0.159/s of that clip — the live `/estimate` quote is the accurate figure.

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildHiggsfieldRequest, normalizeHiggsfieldStatus } from "../higgsfield";
+import { HIGGSFIELD_CATALOG } from "../higgsfield/catalog";
 import { input, HF_STATUS_COMPLETED_IMAGE, HF_STATUS_COMPLETED_VIDEO } from "./fixtures";
 
 describe("Higgsfield request mapping", () => {
@@ -49,5 +50,29 @@ describe("prompt reference tags", () => {
     const r = buildHiggsfieldRequest(input("alibaba/wan-3.0/reference-to-video", { prompt: "@image1 in the style of @image2", media: { reference: ["https://x/a.jpg", "https://x/b.jpg"] } }));
     expect(r.body.prompt).toBe("Image 1 in the style of Image 2");
     expect(r.body.image_urls).toEqual(["https://x/a.jpg", "https://x/b.jpg"]);
+  });
+});
+
+describe("Genjutsu Motion Transfer", () => {
+  it("maps the driving video and references, and offers 1080p", () => {
+    const r = buildHiggsfieldRequest(
+      input("higgsfield/genjutsu/motion-transfer/v1.0", {
+        prompt: "",
+        media: { video: ["https://x/clip.mp4"], reference: ["https://x/a.jpg", "https://x/b.jpg"] },
+        settings: { resolution: "1080p" },
+      }),
+    );
+    expect(r.path).toBe("/higgsfield/genjutsu/motion-transfer/v1.0");
+    expect(r.body).toEqual({
+      prompt: "",
+      resolution: "1080p",
+      video_url: "https://x/clip.mp4",
+      image_urls: ["https://x/a.jpg", "https://x/b.jpg"],
+    });
+  });
+  it("is declared prompt-optional", () => {
+    const m = HIGGSFIELD_CATALOG.find((x) => x.id === "higgsfield/genjutsu/motion-transfer/v1.0");
+    expect(m?.promptOptional).toBe(true);
+    expect(m?.media.map((r) => `${r.role}:${r.min}-${r.max}`)).toEqual(["video:1-1", "reference:1-8"]);
   });
 });

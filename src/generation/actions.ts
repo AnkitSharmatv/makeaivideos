@@ -45,8 +45,9 @@ export async function submitJob(providerId: string, rawInput: GenerateInput): Pr
   if (!key) return { ok: false, reason: "No key saved for this provider.", code: "auth" };
   const provider = getProvider(providerId);
   const input = sanitizeInput(rawInput);
-  if (!provider.catalog.some((m) => m.id === input.modelId)) return { ok: false, reason: "Unknown model.", code: "unknown" };
-  if (!input.prompt.trim()) return { ok: false, reason: "Prompt is empty.", code: "unknown" };
+  const model = provider.catalog.find((m) => m.id === input.modelId);
+  if (!model) return { ok: false, reason: "Unknown model.", code: "unknown" };
+  if (!model.promptOptional && !input.prompt.trim()) return { ok: false, reason: "Prompt is empty.", code: "unknown" };
   try {
     const { jobId } = await provider.submit(input, key);
     return { ok: true, jobId };

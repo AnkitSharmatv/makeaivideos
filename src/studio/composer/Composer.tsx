@@ -67,7 +67,7 @@ export function Composer() {
       ? "Choose a model"
       : !hasKey
         ? `Add a ${PROVIDER_LABELS[model.provider]} key`
-        : !prompt.trim()
+        : !prompt.trim() && !model.promptOptional
           ? "Write a prompt"
           : missingMedia.length
             ? `Attach ${missingMedia.map((r) => r.label.toLowerCase()).join(" and ")}`
