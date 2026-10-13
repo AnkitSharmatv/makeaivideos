@@ -13,7 +13,7 @@ type Row = { model: ModelSpec; key: string };
 /** Default-settings price, plus the per-second note for video models billed by duration. */
 function PriceTag({ model }: { model: ModelSpec }) {
   const p = baselinePrice(model);
-  if (!p) return <span className="model-price model-price-none">quoted live</span>;
+  if (!p) return <span className="model-price model-price-none">{model.priceHint ?? "quoted live"}</span>;
   const defaults = model.settings.find((s) => s.key === "duration");
   const perSecond = model.kind === "video" && !!defaults;
   return (

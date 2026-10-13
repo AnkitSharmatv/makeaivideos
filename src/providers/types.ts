@@ -49,7 +49,10 @@ export type PriceEstimate = {
 
 export type Balance = { credits?: number; usd?: number };
 
-export type PriceFn = (settings: Record<string, SettingValue>, count: number) => PriceEstimate | null;
+/** Extra facts a price may depend on, beyond the declared settings. */
+export type PriceContext = { inputSeconds?: number };
+
+export type PriceFn = (settings: Record<string, SettingValue>, count: number, ctx?: PriceContext) => PriceEstimate | null;
 
 /**
  * How a model wants attached reference images mentioned in the prompt. The app
@@ -82,6 +85,8 @@ export type ModelSpec = {
   notes?: string;
   /** Published pricing, as a function of the resolved settings and native batch count. Never blocks. */
   price?: PriceFn;
+  /** Shown instead of a number when the price can't be known until inputs are attached. */
+  priceHint?: string;
 };
 
 export type SettingValue = string | number | boolean;

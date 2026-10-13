@@ -76,3 +76,20 @@ describe("Genjutsu Motion Transfer", () => {
     expect(m?.media.map((r) => `${r.role}:${r.min}-${r.max}`)).toEqual(["video:1-1", "reference:1-8"]);
   });
 });
+
+describe("Genjutsu pricing (per second of input video)", () => {
+  const m = HIGGSFIELD_CATALOG.find((x) => x.id === "higgsfield/genjutsu/motion-transfer/v1.0")!;
+  it("returns nothing until a clip is attached", () => {
+    expect(m.price!({ resolution: "1080p" }, 1)).toBeNull();
+    expect(m.priceHint).toContain("/ s of input");
+  });
+  it("charges the published rate per rounded-up second", () => {
+    // 21.1 s clip rounds up to 22 s.
+    expect(m.price!({ resolution: "1080p" }, 1, { inputSeconds: 21.1 })?.usd).toBeCloseTo(22 * 1.632, 3);
+    expect(m.price!({ resolution: "720p" }, 1, { inputSeconds: 21.1 })?.usd).toBeCloseTo(22 * 0.681, 3);
+    expect(m.price!({ resolution: "480p" }, 1, { inputSeconds: 21.1 })?.usd).toBeCloseTo(22 * 0.318, 3);
+  });
+  it("caps at the 30 s the provider trims to", () => {
+    expect(m.price!({ resolution: "480p" }, 1, { inputSeconds: 90 })?.usd).toBeCloseTo(30 * 0.318, 3);
+  });
+});

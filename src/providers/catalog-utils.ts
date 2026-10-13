@@ -1,4 +1,4 @@
-import type { GenerateInput, MediaRoleSpec, ModelSpec, PriceEstimate, PriceFn, PromptRefStyle, SettingSpec, SettingValue } from "./types";
+import type { GenerateInput, MediaRoleSpec, ModelSpec, PriceContext, PriceEstimate, PriceFn, PromptRefStyle, SettingSpec, SettingValue } from "./types";
 
 /** Concise builders for catalog entries. */
 export const s = {
@@ -92,18 +92,18 @@ export function seconds(v: SettingValue | undefined, fallback: number): number {
 }
 
 /** Credit-based pricing helper: credits × creditUsd, per request. */
-export function creditPrice(creditUsd: number, fn: (settings: Record<string, SettingValue>, count: number) => number | null): PriceFn {
-  return (settings, count) => {
-    const credits = fn(settings, count);
+export function creditPrice(creditUsd: number, fn: (settings: Record<string, SettingValue>, count: number, ctx?: PriceContext) => number | null): PriceFn {
+  return (settings, count, ctx) => {
+    const credits = fn(settings, count, ctx);
     if (credits === null || !Number.isFinite(credits)) return null;
     return { credits, usd: credits * creditUsd, approx: true };
   };
 }
 
 /** USD-based pricing helper, per request. */
-export function usdPrice(fn: (settings: Record<string, SettingValue>, count: number) => number | null): PriceFn {
-  return (settings, count) => {
-    const usd = fn(settings, count);
+export function usdPrice(fn: (settings: Record<string, SettingValue>, count: number, ctx?: PriceContext) => number | null): PriceFn {
+  return (settings, count, ctx) => {
+    const usd = fn(settings, count, ctx);
     if (usd === null || !Number.isFinite(usd)) return null;
     const est: PriceEstimate = { usd, approx: true };
     return est;

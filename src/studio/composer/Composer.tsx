@@ -230,6 +230,7 @@ export function Composer() {
             title={cost ? `${cost.source === "live" ? "Quoted by the provider" : cost.source === "observed" ? "What this exact setup cost last time" : "From the provider's published rates"}${cost.approx ? " — final charge may differ" : ""}` : undefined}
           >
             <span>{submitting ? "Preparing…" : `Generate${model && batch > 1 ? ` ×${Math.min(batch, model.batch.max)}` : ""}`}</span>
+            {!cost && model?.priceHint ? <span className="cost cost-approx">{model.priceHint}</span> : null}
             {cost ? (
               <span className="cost" aria-label={`Estimated cost ${cost.credits !== undefined ? `${formatCredits(cost.credits)} credits, ` : ""}${formatUsd(cost.usd)}`}>
                 {cost.credits !== undefined ? (

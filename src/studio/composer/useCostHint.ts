@@ -6,12 +6,24 @@ import type { MediaRefs } from "@/db/types";
 import { getProvider } from "@/providers";
 import { estimateJob } from "@/generation/actions";
 import { estimateCost, type CostHint } from "@/generation/pricing";
+import { useUploadsStore } from "@/stores/uploads";
+import { useLibraryStore } from "@/stores/library";
 
 /**
  * Cost for the current composer state. Published rates resolve instantly;
  * providers with a live quote (Higgsfield) are asked after a short debounce.
  */
 export function useCostHint(model: ModelSpec | null, settings: Record<string, SettingValue>, batch: number, prompt: string, media: MediaRefs): CostHint | null {
+  const uploads = useUploadsStore((s) => s.uploads);
+  const assets = useLibraryStore((s) => s.assets);
+  // Models billed per second of input need the attached clip's length.
+  const inputSeconds = useMemo(() => {
+    const ref = media.video?.[0];
+    if (!ref) return undefined;
+    if (ref.type === "upload") return uploads.find((u) => u.id === ref.id)?.duration;
+    if (ref.type === "asset") return assets.find((a) => a.id === ref.id)?.duration;
+    return undefined;
+  }, [media.video, uploads, assets]);
   const [live, setLive] = useState<{ sig: string; value: PriceEstimate | null } | null>(null);
   const sig = model ? `${model.provider}:${model.id}|${batch}|${JSON.stringify(settings)}|${JSON.stringify(media)}` : "";
   const hasLive = !!model && !!getProvider(model.provider).estimate;
@@ -39,6 +51,6 @@ export function useCostHint(model: ModelSpec | null, settings: Record<string, Se
   return useMemo(() => {
     if (!model) return null;
     const liveValue = hasLive && live?.sig === sig ? live.value : undefined;
-    return estimateCost(model, settings, batch, liveValue);
-  }, [model, settings, batch, hasLive, live, sig]);
+    return estimateCost(model, settings, batch, liveValue, { inputSeconds });
+  }, [model, settings, batch, hasLive, live, sig, inputSeconds]);
 }

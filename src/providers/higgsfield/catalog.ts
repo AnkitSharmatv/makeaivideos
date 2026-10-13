@@ -617,8 +617,16 @@ export const HIGGSFIELD_CATALOG: HiggsfieldEntry[] = [
     media: [m.video(), m.reference(8, 1)],
     batch: { native: false, max: 2 },
     promptOptional: true,
-    notes: "Swaps characters, locations and styles in a video while keeping its motion. Source clip 4–30 s (longer is trimmed); 1–8 references; prompt optional. Billed per second of the source video.",
-    price: sec(0.159, 5),
+    notes: "Swaps characters, locations and styles in a video while keeping its motion. Source clip 4–30 s (longer is trimmed); 1–8 references; prompt optional. Expensive: billed per second of the source clip.",
+    // Rates from Higgsfield's own /estimate response (2026-10-13), per second of INPUT video,
+    // rounded up to a whole second. Shown before any account discount.
+    priceHint: "$0.32–$1.63 / s of input",
+    price: usdPrice((st, _count, ctx) => {
+      const perSecond = st.resolution === "1080p" ? 1.632 : st.resolution === "720p" ? 0.681 : 0.318;
+      const seconds = ctx?.inputSeconds;
+      if (!seconds || !Number.isFinite(seconds)) return null; // unknowable until a clip is attached
+      return perSecond * Math.ceil(Math.min(seconds, 30));
+    }),
     body: (i, st) => ({ ...std(i, st), video_url: firstUrl(i, "video"), image_urls: urls(i, "reference") }),
   },
 ];

@@ -5,7 +5,7 @@
  */
 import type { Run } from "@/db/types";
 import { getProvider } from "@/providers";
-import type { JobCost, ModelSpec, PriceEstimate, SettingValue } from "@/providers/types";
+import type { JobCost, ModelSpec, PriceContext, PriceEstimate, SettingValue } from "@/providers/types";
 import { resolveSettings } from "@/providers/catalog-utils";
 
 const OBSERVED_KEY = "mav.prices";
@@ -44,7 +44,13 @@ export type CostHint = PriceEstimate & { source: "observed" | "published" | "liv
  * Estimate for a Generate press: `batch` runs of `count` outputs each.
  * Returns null when nothing is known — the UI then shows nothing.
  */
-export function estimateCost(model: ModelSpec, settings: Record<string, SettingValue>, batch: number, live?: PriceEstimate | null): CostHint | null {
+export function estimateCost(
+  model: ModelSpec,
+  settings: Record<string, SettingValue>,
+  batch: number,
+  live?: PriceEstimate | null,
+  ctx?: PriceContext,
+): CostHint | null {
   const native = model.batch.native;
   const count = native ? Math.min(batch, model.batch.max) : 1;
   const runs = native ? 1 : Math.min(batch, model.batch.max);
@@ -62,7 +68,7 @@ export function estimateCost(model: ModelSpec, settings: Record<string, SettingV
       per = { usd: obs.usd ?? obs.credits! * creditUsd!, credits: obs.credits };
       source = "observed";
     } else if (model.price) {
-      per = model.price(settings, count);
+      per = model.price(settings, count, ctx);
     }
   }
   if (!per) return null;

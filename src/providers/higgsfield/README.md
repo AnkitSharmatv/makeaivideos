@@ -73,5 +73,11 @@ misspelled `higgsfiled/...` alias still answers, and both appear in the catalog 
 published API reference documents the corrected one, so that is what the adapter uses.
 Also changed: `resolution` now offers **1080p** alongside 720p/480p, and the docs state the source
 clip must be ≥4 s (anything over 30 s is trimmed), references are 1–8 images, and `prompt` is
-optional (defaults to ""). Output duration follows the source video, so billing is
-0.159/s of that clip — the live `/estimate` quote is the accurate figure.
+optional (defaults to ""). **Pricing (corrected 2026-10-13):** the catalog API's `pricing.primary.amount` of 0.159/s is only a
+"from" figure — the real rates, returned by `POST /estimate/...` for this model, are **per second of
+INPUT video, rounded up**: $0.318 at 480p, $0.681 at 720p, **$1.632 at 1080p**, before any account
+discount. A 21 s clip at 1080p is therefore ~$36, not the ~$0.80 the old entry implied. Note that
+this model's `/estimate` returns `{"type":"description", "pricing_description": "..."}` rather than
+`{credits, usd}`, so the live-quote path yields nothing here and the catalog rate is what the UI
+uses; the adapter returns no figure at all until a clip is attached, since duration is unknowable
+before that.
